@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
+import { GlobalContext } from "../contexts/GlobalContext";
 // stato iniziale del post
 const initialPost = {
     title: "",
@@ -17,32 +18,13 @@ const myApiUrl = "http://localhost:3000";
 
 
 function PostForm() {
-    // const tagList = tags();
     const [post, setPost] = useState(initialPost);
-    const [selectedTags, setSelectedTags] = useState([]); // Stato per i tag selezionati
+    // const [selectedTags, setSelectedTags] = useState([]); // Stato per i tag selezionati
     const [posts, setPosts] = useState([]);
 
+    const { selectedTags } = useContext(GlobalContext);
+
     const navigate = useNavigate();
-
-    useEffect(() => {
-        getTags();
-    }, []);
-
-    function getTags() {
-        axios
-            .get(myApiUrl + "/tags")
-            .then((res) => {
-                console.log(res.data);
-                setSelectedTags(res.data.tags);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-            .finally(() => {
-
-            });
-    }
-
 
     function handleSubmit(event) {
 
@@ -56,28 +38,9 @@ function PostForm() {
             const id = res.data.id;
             navigate('/posts/' + id);
         })
-        // .then((res) => {
-        //     // console.log(res.data);
-        //     // const id = res.data.id;
-        //     // navigate('/posts/' + id);
-        //     //navigateToPost(id);
-        // });
+
         setPost(initialPost);
-
-        // // controllo se il campo è vuoto
-        // if (post.title.trim() === "") return;
-        // // creo il nuovo post
-        // const newPost = { ...post, id: Date.now(), tags: selectedTags };
-        // // richiamo la funzione del contenitore padre e reimposto il form al valore iniziale
-        // addPost(newPost);
-        // setPost(initialPost);
-        // setSelectedTags([]); // Resetta i tag selezionati
     }
-
-    // function navigateToPost(id) {
-    //     const id = res.data.id;
-    //     navigate('/posts/' + id);
-    // }
 
     function handleInput(event) {
         const value =

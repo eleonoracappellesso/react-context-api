@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-// import { allPosts } from "../data/post";
 import CardComponent from "../components/CardComponent"
-// import PostForm from "../pages/PostForm";
 
 import axios from "axios";
 
