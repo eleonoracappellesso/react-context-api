@@ -13,6 +13,8 @@ import PostForm from "./pages/PostForm";
 import SinglePostPage from "./pages/SinglePostPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
+import axios from "axios";
+const myApiUrl = "http://localhost:3000";
 
 function App() {
 
